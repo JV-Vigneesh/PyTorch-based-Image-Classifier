@@ -144,11 +144,11 @@ Predictions and image display will be shown after training.
 
 ### 📉 Training Curves
 
-![Training Curves](assets/train_Loss_and_Curve.png)
+![Training Curves](assets/Train Loss and Curve.png)
 
 ### 📁 Confusion Matrix
 
-![Confusion Matrix](assets/matrix.png)
+![Confusion Matrix](assets/Matrix.png)
 
 ### 🔍 t-SNE Visualization
 
