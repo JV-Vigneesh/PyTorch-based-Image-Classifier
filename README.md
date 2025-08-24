@@ -144,7 +144,7 @@ Predictions and image display will be shown after training.
 
 ### 📉 Training Curves
 
-![Training Curves](assets/Train Loss and Curve.png)
+![Training Curves](assets/Train_Loss_and_Curve.png)
 
 ### 📁 Confusion Matrix
 
