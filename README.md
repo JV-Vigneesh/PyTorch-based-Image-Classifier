@@ -1,171 +1,122 @@
-# 🧠 Building a PyTorch-based Image Classifier from Scratch
+# 🧠 A PYTORCH-BASED IMAGE CLASSIFIER
 
-This project demonstrates how to build a complete image classification pipeline using **PyTorch** and the **CIFAR-10 dataset**. It covers dataset preparation, data augmentation, visualization, model building, training, evaluation, and predicting custom images.
-
----
-
-## 🧐 Overview
-
-This project walks through the process of building a deep learning image classifier from scratch using PyTorch. It includes:
-
-- Loading and preprocessing data
-- Data visualization and exploratory analysis
-- Designing and training a CNN
-- Evaluating model performance with metrics and visualizations
-- Predicting classes for new, unseen images
+This project implements a complete pipeline for training, evaluating, and using a Convolutional Neural Network (CNN) to classify images from the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html). It includes model training, visualizations, evaluation metrics, and custom image prediction — all built using **PyTorch**.
 
 ---
 
-## 📂 Dataset
+## 🔍 Features
 
-We use the [CIFAR-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html), which contains 60,000 32x32 RGB images across 10 categories:
+* ✅ CNN model with batch normalization and dropout
+* 📊 Real-time training loss and accuracy tracking
+* 📈 Confusion matrix and classification report
+* 🖼️ Visualization: class distribution, sample images, t-SNE plots
+* 🔬 RGB pixel correlation heatmap
+* 💾 Save and load model from disk (`.pth`)
+* 📷 Predict custom input images
+
+---
+
+## 📁 Dataset: CIFAR-10
+
+The CIFAR-10 dataset includes **60,000 images** (32x32 RGB) divided into **10 classes**:
 
 ```
-
 airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck
-
 ```
 
-- Training images: 50,000  
-- Test images: 10,000  
-
-### 🔄 Data Augmentation
-
-- `RandomHorizontalFlip`
-- `RandomRotation`
-- `Normalization`
+* 50,000 training images
+* 10,000 test images
 
 ---
 
-## 🧠 Model Architecture
+## 🚀 Getting Started
 
-The CNN architecture is composed of:
-
-```
-
-Conv2D(3→32) → BatchNorm → ReLU → MaxPool
-→ Conv2D(32→64) → BatchNorm → ReLU → MaxPool
-→ Conv2D(64→128) → BatchNorm → ReLU → MaxPool
-→ Global Average Pooling
-→ Fully Connected (128→512) → Dropout
-→ Fully Connected (512→10)
-
-````
-
-- **Activation:** ReLU  
-- **Regularization:** BatchNorm + Dropout  
-- **Loss Function:** CrossEntropyLoss  
-- **Optimizer:** Adam  
-- **Learning Rate Scheduler:** StepLR
-
----
-
-## 🌟 Features
-
-- 📊 Class distribution (Bar chart + Pie chart)
-- 🖼️ Sample image display
-- 🔍 t-SNE for feature visualization
-- 📈 Correlation heatmap of pixel values
-- 🧠 CNN from scratch with dropout and batch norm
-- 📉 Training loss and accuracy curves
-- 📋 Confusion matrix + Classification report
-- 🧪 Predictions on custom `.jpg` images
-
----
-
-## ⚙️ Installation
-
-### 1️⃣ Clone the repository
+### 1️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/JV-Vigneesh/PyTorch-based-Image-Classifier.git
-cd PyTorch-based-Image-Classifier
-````
-
-### 2️⃣ (Optional) Create a virtual environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+cd pytorch-image-classifier
 ```
 
-### 3️⃣ Install dependencies
+### 2️⃣ Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
-
-If `requirements.txt` not available, install manually:
+Use pip to install required Python packages:
 
 ```bash
 pip install torch torchvision matplotlib seaborn scikit-learn pandas pillow
 ```
 
----
-
-## 🚀 Usage
-
-### ▶️ Train & Evaluate the Model
+### 3️⃣ Run the Main Script
 
 ```bash
 python main.py
 ```
 
-This will:
+* If a model checkpoint `cifar10_cnn.pth` exists, it will load the model and skip training.
+* Otherwise, it will train the model, evaluate it, and save it.
 
-* Train the CNN for 22 epochs
-* Print training accuracy and loss per epoch
-* Evaluate on the test dataset
-* Show confusion matrix and classification report
-* Predict custom `.jpg` images
+---
 
-### 🖼️ Predict Custom Images
+## 🧠 Model Architecture
 
-Place your images (32x32 or will be resized) in the project directory and modify:
-
-```python
-image_paths = [
-    "t.jpg",
-    "p.jpg",
-    "b.jpg",
-    "f.jpg"
-]
+```
+Input: 3 x 32 x 32
+→ Conv2D (3→32) + BN + ReLU + MaxPool
+→ Conv2D (32→64) + BN + ReLU + MaxPool
+→ Conv2D (64→128) + BN + ReLU + MaxPool
+→ Global Average Pooling
+→ FC (128→512) + ReLU + Dropout
+→ FC (512→10)
 ```
 
-Predictions and image display will be shown after training.
+---
+
+## 🧪 Evaluation Output
+
+* 🔹 **Test Accuracy & Loss**
+* 🔹 **Normalized Confusion Matrix**
+* 🔹 **Classification Report (Precision, Recall, F1-Score)**
 
 ---
 
-## 📊 Results
+## 🖼️ Custom Image Prediction
 
-### ✅ Final Test Accuracy
+You can place your own `.jpg` or `.png` images in the root folder. Make sure to update this line in the script:
 
-* Achieves \~75–80% test accuracy (varies by system and training)
+```python
+image_paths = ["t.jpg", "p.jpg", "h.jpg", "f.jpg"]
+```
 
-### 📉 Training Curves
+These images will be:
 
-![Training Curves](assets/Train_Loss_and_Curve.png)
-
-### 📁 Confusion Matrix
-
-![Confusion Matrix](assets/Matrix.png)
-
-### 🔍 t-SNE Visualization
-
-![t-SNE](assets/t-SNE.png)
+* Resized to 32x32
+* Normalized using test transforms
+* Passed through the trained model
+* Displayed along with predicted class
 
 ---
 
-## 🖼️ Sample Predictions
+## 📊 Visualizations
 
-![Sample Prediction](assets/PT.png)
-![Sample Prediction](assets/PA.png)
-![Sample Prediction](assets/PB.png)
-![Sample Prediction](assets/PF.png)
+* 📌 **Bar chart & pie chart** for class distribution
+* 🖼️ **16 sample images** with labels
+* 🔍 **t-SNE plot** of image feature vectors
+* 🔬 **RGB pixel correlation heatmap**
+* 🎯 **Training loss & accuracy curves**
+
+---
+
+## 📦 File Structure
+
+```
+├── main.ipynb               # Main script with all logic
+├── cifar10_cnn.pth       # Saved model (generated after training)
+├── t.jpg, p.jpg, ...     # Custom test images (optional)
+└── README.md             # Project documentation
+```
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
-See the [LICENSE](LICENSE) file for details.
+This project is licensed under the [MIT License](LICENSE).
